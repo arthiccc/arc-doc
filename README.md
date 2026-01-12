@@ -5,14 +5,11 @@
 
 A sophisticated document management system designed for institutional memory, featuring a "Digital Paper" aesthetic and a deep-extraction search engine.
 
-<div align="center">
-  <h3>[ 60-Second Technical Demo ]</h3>
+### [ 60-Second Technical Demo ]
 
-  <video src="https://github.com/arthiccc/arc-doc/raw/main/arc-doc-demo.mp4" autoplay="autoplay" loop="loop" muted="muted" width="600">
-  </video>
+<video src="https://raw.githubusercontent.com/arthiccc/arc-doc/main/arc-doc-demo.mp4" autoplay muted loop playsinline width="100%"></video>
 
-  <p><i>Deep search and text extraction in action.</i></p>
-</div>
+*Deep search and text extraction in action.*
 
 ## 🚀 Technical Highlights
 
