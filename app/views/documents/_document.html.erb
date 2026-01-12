@@ -1,0 +1,28 @@
+<tr id="<%= dom_id document %>" class="group hover:bg-[#fcfcfc] transition-colors">
+  <td class="py-4 pr-4">
+    <%= link_to document.title, document, class: "text-[#1a1a1a] font-medium hover:underline decoration-[#d1c7b7] underline-offset-4", data: { turbo: false } %>
+    <div class="text-[9px] text-[#ccc] mt-0.5 uppercase tracking-tighter">REF: CA-<%= 1000 + document.id %></div>
+  </td>
+  
+  <td class="py-4 px-4">
+    <span class="text-xs text-[#666]"><%= document.category.name %></span>
+    <span class="text-[10px] text-[#ccc] mx-1">/</span>
+    <span class="text-[10px] text-[#999] uppercase font-bold tracking-widest"><%= document.category.department.name %></span>
+  </td>
+
+  <td class="py-4 px-4 text-xs text-[#999]">
+    <%= document.created_at.strftime("%b %d, %Y") %>
+  </td>
+
+  <td class="py-4 px-4 text-xs text-[#999]">
+    <%= document.updated_at.strftime("%b %d, %Y") %>
+  </td>
+
+  <td class="py-4 pl-4 text-right text-xs font-mono text-[#bbb]">
+    <% if document.file.attached? %>
+      <%= number_to_human_size(document.file.blob.byte_size) %>
+    <% else %>
+      —
+    <% end %>
+  </td>
+</tr>

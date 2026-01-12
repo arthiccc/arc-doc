@@ -1,0 +1,16 @@
+<div class="w-full">
+  <header class="mb-16">
+    <h2 class="text-5xl text-[#1a1a1a] mb-4">Departmental Directory</h2>
+    <p class="text-sm italic text-[#999]">Administrative divisions managing the campus records.</p>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <%= render @departments %>
+  </div>
+
+  <% if policy(Department).new? %>
+    <div class="mt-16 pt-12 border-t paper-border">
+      <%= link_to "Establish New Department", new_department_path, class: "inline-block bg-[#1a1a1a] text-white px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-black transition-colors rounded-sm" %>
+    </div>
+  <% end %>
+</div>

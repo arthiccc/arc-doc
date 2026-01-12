@@ -1,0 +1,27 @@
+<div class="max-w-md mx-auto py-12">
+  <header class="mb-16 text-center">
+    <h2 class="text-6xl text-[#1a1a1a] mb-4">Account Recovery</h2>
+    <p class="text-sm italic text-[#999]">Request a security reset.</p>
+  </header>
+
+  <div class="bg-white border paper-border p-12 shadow-sm">
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "space-y-10" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="space-y-8">
+        <div>
+          <%= f.label :email, class: "block text-[10px] font-bold uppercase tracking-widest text-[#999] mb-3" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full bg-transparent border-b paper-border focus:paper-border focus:ring-0 focus:border-black py-2 italic text-xl" %>
+        </div>
+      </div>
+
+      <div class="pt-6">
+        <%= f.submit "Send Reset Instructions", class: "w-full bg-[#1a1a1a] text-white py-4 text-xs font-bold uppercase tracking-widest hover:bg-black transition-colors rounded-sm cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-12 text-center text-[10px] font-bold uppercase tracking-widest text-[#ccc]">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

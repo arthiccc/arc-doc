@@ -1,0 +1,36 @@
+<div class="max-w-3xl">
+  <nav class="mb-12">
+    <%= link_to "← Back to Directory", departments_path, class: "text-xs font-bold uppercase tracking-widest text-[#999] hover:text-black transition-colors" %>
+  </nav>
+
+  <header class="mb-16 border-b paper-border pb-12">
+    <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#bbb] mb-2">Division Profile</div>
+    <h2 class="text-6xl text-[#1a1a1a] mb-6"><%= @department.name %></h2>
+    <p class="text-xl italic text-[#666] leading-relaxed"><%= @department.description %></p>
+  </header>
+
+  <section class="mb-16">
+    <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#999] mb-8 border-b paper-border pb-2 inline-block">Managed Categories</div>
+    <div class="grid grid-cols-1 gap-4">
+      <% if @department.categories.any? %>
+        <% @department.categories.each do |category| %>
+          <div class="p-6 border paper-border flex justify-between items-center group hover:bg-[#fafafa]">
+            <span class="font-serif italic text-lg text-[#1a1a1a]"><%= category.name %></span>
+            <%= link_to "View Files", category, class: "text-[10px] font-bold uppercase tracking-widest text-[#bbb] group-hover:text-black transition-colors" %>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="italic text-[#999]">No active categories registered for this division.</p>
+      <% end %>
+    </div>
+  </section>
+
+  <div class="pt-12 border-t paper-border flex gap-8">
+    <% if policy(@department).edit? %>
+      <%= link_to "Amend Department Details", edit_department_path(@department), class: "text-xs font-bold uppercase tracking-widest text-[#666] hover:text-black" %>
+    <% end %>
+    <% if policy(@department).destroy? %>
+      <%= button_to "Dissolve Division", @department, method: :delete, class: "text-xs font-bold uppercase tracking-widest text-red-400 hover:text-red-600", data: { turbo_confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+# Default to port 3000 if not specified
+export PORT="${PORT:-3000}"
+
+# Let the debug gem allow remote connections,
+# but avoid loading until `debugger` is called
+export RUBY_DEBUG_OPEN="true"
+export RUBY_DEBUG_LAZY="true"
+
+echo "Starting Rails server on port $PORT..."
+bin/rails server -p $PORT &
+RAILS_PID=$!
+
+echo "Starting Tailwind CSS watcher..."
+bin/rails tailwindcss:watch &
+TAILWIND_PID=$!
+
+# Trap SIGINT and SIGTERM to kill background processes
+trap "kill $RAILS_PID $TAILWIND_PID; exit" INT TERM
+
+# Wait for background processes
+wait

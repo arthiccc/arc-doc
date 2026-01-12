@@ -1,0 +1,44 @@
+<div class="w-full">
+  <div class="mb-16">
+    <%= form_with url: documents_path, method: :get, 
+                  data: { 
+                    controller: "search", 
+                    search_target: "form",
+                    turbo_frame: "documents_list" 
+                  } do |form| %>
+      <%= form.hidden_field :sort, value: params[:sort] %>
+      <%= form.hidden_field :direction, value: params[:direction] %>
+      <div class="search-underline inline-block w-full max-w-md">
+        <%= form.text_field :query, 
+                            value: params[:query], 
+                            placeholder: "Search records, dates, or metadata...", 
+                            data: { action: "input->search#submit" },
+                            autocomplete: "off",
+                            class: "bg-transparent border-none w-full py-2 focus:ring-0 italic text-2xl placeholder-[#d1c7b7] text-[#1a1a1a]" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag "documents_list" do %>
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="text-[10px] font-bold uppercase tracking-widest text-[#999] border-b paper-border">
+          <th class="pb-4 font-normal"><%= sort_link "name", "Document Name" %></th>
+          <th class="pb-4 px-4 font-normal"><%= sort_link "classification", "Classification" %></th>
+          <th class="pb-4 px-4 font-normal"><%= sort_link "uploaded", "Uploaded" %></th>
+          <th class="pb-4 px-4 font-normal"><%= sort_link "modified", "Modified" %></th>
+          <th class="pb-4 pl-4 font-normal text-right"><%= sort_link "size", "Size" %></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y paper-border">
+        <%= render @documents %>
+      </tbody>
+    </table>
+
+    <% if @documents.empty? %>
+      <div class="py-24 text-center">
+        <p class="italic text-[#999] text-lg font-serif">No records matching your inquiry were found.</p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

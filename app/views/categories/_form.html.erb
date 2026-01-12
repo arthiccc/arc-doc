@@ -1,0 +1,36 @@
+<div class="max-w-2xl">
+  <header class="mb-12">
+    <h2 class="text-4xl text-[#1a1a1a] mb-2"><%= category.new_record? ? "New Classification" : "Amend Classification" %></h2>
+    <p class="text-sm italic text-[#999]">Define a new category for filing records within a department.</p>
+  </header>
+
+  <%= form_with(model: category, class: "space-y-10") do |form| %>
+    <% if category.errors.any? %>
+      <div class="p-6 bg-red-50 border border-red-100 italic text-sm text-red-600">
+        <h3 class="font-bold not-italic mb-2"><%= pluralize(category.errors.count, "error") %> prevented saving:</h3>
+        <ul class="list-disc ml-5">
+          <% category.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="space-y-8">
+      <div>
+        <%= form.label :name, "Classification Name", class: "block text-[10px] font-bold uppercase tracking-widest text-[#999] mb-3" %>
+        <%= form.text_field :name, class: "w-full bg-transparent border-b paper-border focus:paper-border focus:ring-0 focus:border-black py-2 italic text-xl" %>
+      </div>
+
+      <div>
+        <%= form.label :department_id, "Parent Division", class: "block text-[10px] font-bold uppercase tracking-widest text-[#999] mb-3" %>
+        <%= form.collection_select :department_id, Department.all, :id, :name, { prompt: "Assign to Department..." }, class: "w-full bg-transparent border-b paper-border focus:ring-0 focus:border-black py-2 text-sm appearance-none" %>
+      </div>
+    </div>
+
+    <div class="pt-12 border-t paper-border flex items-center gap-8">
+      <%= form.submit "Commit to Registry", class: "bg-[#1a1a1a] text-white px-10 py-4 text-xs font-bold uppercase tracking-widest hover:bg-black transition-colors rounded-sm cursor-pointer shadow-sm" %>
+      <%= link_to "Cancel", categories_path, class: "text-xs font-bold uppercase tracking-widest text-[#999] hover:text-black" %>
+    </div>
+  <% end %>
+</div>

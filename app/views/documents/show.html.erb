@@ -1,0 +1,57 @@
+<div class="max-w-3xl">
+  <nav class="mb-12">
+    <%= link_to "← Back to Archive", documents_path, class: "text-xs font-bold uppercase tracking-widest text-[#999] hover:text-black transition-colors" %>
+  </nav>
+
+  <header class="mb-12 border-b paper-border pb-12">
+    <h2 class="text-6xl text-[#1a1a1a] mb-4"><%= @document.title %></h2>
+    <div class="flex gap-6 text-sm italic text-[#666]">
+      <span>Classification: <%= @document.category.name %></span>
+      <span>•</span>
+      <span>Department: <%= @document.category.department.name %></span>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div class="md:col-span-2">
+      <div class="bg-[#fcfcfc] border paper-border p-12 min-h-[400px] flex flex-col justify-center items-center text-center">
+        <% if @document.file.attached? %>
+          <div class="w-16 h-20 border-2 paper-border relative mb-6">
+            <div class="absolute top-0 right-0 w-4 h-4 border-b-2 border-l-2 paper-border bg-white"></div>
+          </div>
+          <p class="font-serif italic text-xl text-[#666] mb-8">This record is secured within the repository.</p>
+          <%= link_to url_for(@document.file), class: "bg-[#1a1a1a] text-white px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-black transition-colors" do %>
+            Download Document (<%= number_to_human_size(@document.file.blob.byte_size) %>)
+          <% end %>
+        <% else %>
+          <p class="italic text-[#999]">No file associated with this record.</p>
+        <% end %>
+      </div>
+    </div>
+
+    <aside class="space-y-8">
+      <div>
+        <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#999] mb-4">Metadata</div>
+        <dl class="space-y-4 text-sm">
+          <div>
+            <dt class="text-[#bbb] mb-1">Deposited</dt>
+            <dd><%= @document.created_at.strftime("%B %d, %Y") %></dd>
+          </div>
+          <div>
+            <dt class="text-[#bbb] mb-1">Last Revision</dt>
+            <dd><%= @document.updated_at.strftime("%B %d, %Y") %></dd>
+          </div>
+          <div>
+            <dt class="text-[#bbb] mb-1">Status</dt>
+            <dd class="italic">Authenticated</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="pt-8 border-t paper-border flex gap-4">
+        <%= link_to "Edit", edit_document_path(@document), class: "text-xs font-bold uppercase tracking-widest text-[#666] hover:text-black" %>
+        <%= button_to "Delete", @document, method: :delete, class: "text-xs font-bold uppercase tracking-widest text-red-400 hover:text-red-600", data: { turbo_confirm: "Are you sure you want to purge this record?" } %>
+      </div>
+    </aside>
+  </div>
+</div>

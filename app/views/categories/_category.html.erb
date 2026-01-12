@@ -1,0 +1,11 @@
+<div id="<%= dom_id category %>" class="group border paper-border p-8 bg-white hover:shadow-md transition-all">
+  <div class="text-[9px] font-bold uppercase tracking-widest text-[#bbb] mb-2"><%= category.department.name %></div>
+  <h3 class="text-2xl text-[#1a1a1a] mb-6 group-hover:italic transition-all">
+    <%= link_to category.name, category, class: "no-underline" %>
+  </h3>
+  
+  <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-[#999]">
+    <span><%= pluralize(category.documents.count, "Record") %></span>
+    <%= link_to "Open Files →", category, class: "hover:text-black transition-colors" %>
+  </div>
+</div>

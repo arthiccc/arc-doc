@@ -1,0 +1,39 @@
+<div class="max-w-3xl">
+  <nav class="mb-12">
+    <%= link_to "← Back to Classifications", categories_path, class: "text-xs font-bold uppercase tracking-widest text-[#999] hover:text-black transition-colors" %>
+  </nav>
+
+  <header class="mb-16 border-b paper-border pb-12">
+    <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#bbb] mb-2">Category Detail</div>
+    <h2 class="text-6xl text-[#1a1a1a] mb-6"><%= @category.name %></h2>
+    <div class="text-sm italic text-[#666]">Part of the <%= @category.department.name %> division repository.</div>
+  </header>
+
+  <section class="mb-16">
+    <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#999] mb-8 border-b paper-border pb-2 inline-block">Archived Records</div>
+    <div class="grid grid-cols-1 gap-2">
+      <% if @category.documents.any? %>
+        <% @category.documents.each do |document| %>
+          <div class="py-4 border-b paper-border flex justify-between items-center group hover:bg-[#fafafa] px-4 -mx-4 transition-colors">
+            <div>
+              <%= link_to document.title, document, class: "font-serif italic text-lg text-[#1a1a1a] hover:underline decoration-[#d1c7b7] underline-offset-4" %>
+              <div class="text-[9px] text-[#bbb] uppercase font-bold tracking-widest mt-1">Uploaded: <%= document.created_at.strftime("%b %d, %Y") %></div>
+            </div>
+            <%= link_to "View", document, class: "text-[10px] font-bold uppercase tracking-widest text-[#bbb] group-hover:text-black transition-colors" %>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="italic text-[#999]">No documents currently indexed under this classification.</p>
+      <% end %>
+    </div>
+  </section>
+
+  <div class="pt-12 border-t paper-border flex gap-8">
+    <% if policy(@category).edit? %>
+      <%= link_to "Rename Classification", edit_category_path(@category), class: "text-xs font-bold uppercase tracking-widest text-[#666] hover:text-black" %>
+    <% end %>
+    <% if policy(@category).destroy? %>
+      <%= button_to "Remove Category", @category, method: :delete, class: "text-xs font-bold uppercase tracking-widest text-red-400 hover:text-red-600", data: { turbo_confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
+</div>

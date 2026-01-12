@@ -1,0 +1,36 @@
+<div class="max-w-2xl">
+  <header class="mb-12">
+    <h2 class="text-4xl text-[#1a1a1a] mb-2"><%= department.new_record? ? "Establish Division" : "Amend Division Registry" %></h2>
+    <p class="text-sm italic text-[#999]">Register or update administrative department information.</p>
+  </header>
+
+  <%= form_with(model: department, class: "space-y-10") do |form| %>
+    <% if department.errors.any? %>
+      <div class="p-6 bg-red-50 border border-red-100 italic text-sm text-red-600">
+        <h3 class="font-bold not-italic mb-2"><%= pluralize(department.errors.count, "error") %> prevented registry:</h3>
+        <ul class="list-disc ml-5">
+          <% department.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="space-y-8">
+      <div>
+        <%= form.label :name, "Division Name", class: "block text-[10px] font-bold uppercase tracking-widest text-[#999] mb-3" %>
+        <%= form.text_field :name, class: "w-full bg-transparent border-b paper-border focus:paper-border focus:ring-0 focus:border-black py-2 italic text-xl" %>
+      </div>
+
+      <div>
+        <%= form.label :description, "Division Mandate", class: "block text-[10px] font-bold uppercase tracking-widest text-[#999] mb-3" %>
+        <%= form.text_area :description, rows: 4, class: "w-full bg-transparent border paper-border focus:paper-border focus:ring-0 focus:border-black p-4 text-sm" %>
+      </div>
+    </div>
+
+    <div class="pt-12 border-t paper-border flex items-center gap-8">
+      <%= form.submit "Commit to Registry", class: "bg-[#1a1a1a] text-white px-10 py-4 text-xs font-bold uppercase tracking-widest hover:bg-black transition-colors rounded-sm cursor-pointer shadow-sm" %>
+      <%= link_to "Cancel", departments_path, class: "text-xs font-bold uppercase tracking-widest text-[#999] hover:text-black" %>
+    </div>
+  <% end %>
+</div>
