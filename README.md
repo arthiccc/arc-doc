@@ -7,7 +7,7 @@ A sophisticated document management system designed for institutional memory, fe
 
 <div align="center">
   <h3>[ 60-Second Technical Demo ]</h3>
-  <video src="https://github.com/arthiccc/arc-doc/raw/main/arc-doc-demo.mp4" autoplay loop muted playsinline width="600"></video>
+  <video src="arc-doc-demo.mp4" autoplay loop muted playsinline width="600"></video>
   <p><i>Deep search and text extraction in action.</i></p>
 </div>
 
